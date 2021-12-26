@@ -99,7 +99,7 @@ public class InventoryManager : MonoBehaviour
         }
         foreach (InventorySlot slot in slots)
         {
-            if (slot.isEmpty == true)
+            if (slot.isEmpty == false)
             {
                 slot.item = _item;
                 slot.amount = _amount;
