@@ -624,7 +624,7 @@ GameObject:
   - component: {fileID: 460097052}
   - component: {fileID: 460097051}
   m_Layer: 5
-  m_Name: UIBG
+  m_Name: UIPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3962,7 +3962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4019,13 +4019,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfdbb79bb996de84f9f14b02e301d582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIBG: {fileID: 460097049}
+  UIPanel: {fileID: 460097049}
   crosshair: {fileID: 813116057}
   inventoryPanel: {fileID: 633915720}
   slots: []
   isOpened: 0
   reachDistance: 3
-  CVC: {fileID: 963846513}
 --- !u!114 &1732919864
 MonoBehaviour:
   m_ObjectHideFlags: 0
