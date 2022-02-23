@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using Cinemachine;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class InventoryManager : MonoBehaviour
     public bool isOpened;
     public float reachDistance = 3f;
     private Camera mainCamera;
+    public CinemachineVirtualCamera CVC;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -32,26 +35,30 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             isOpened = !isOpened;
             if (isOpened)
             {
                 UIPanel.SetActive(true);
                 crosshair.SetActive(false);
+                CVC.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_InputAxisName = "";
+                CVC.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_InputAxisName = "";
             }
             else
             {
                 UIPanel.SetActive(false);
                 crosshair.SetActive(true);
+                CVC.GetCinemachineComponent<CinemachinePOV>().m_HorizontalAxis.m_InputAxisName = "Mouse X";
+                CVC.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.m_InputAxisName = "Mouse Y";
             }
         }
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, reachDistance))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Physics.Raycast(ray, out hit, reachDistance))
             {
                 if (hit.collider.gameObject.GetComponent<Item>() != null)
                 {
@@ -59,11 +66,6 @@ public class InventoryManager : MonoBehaviour
                     Destroy(hit.collider.gameObject);
                 }
             }
-            Debug.DrawRay(ray.origin, ray.direction * reachDistance, Color.green);
-        }
-        else
-        {
-            Debug.DrawRay(ray.origin, ray.direction * reachDistance, Color.red);
         }
     }
     private void AddItem(ItemScriptableObject _item, int _amount)
@@ -73,12 +75,13 @@ public class InventoryManager : MonoBehaviour
             if (slot.item == _item)
             {
                 slot.amount += _amount;
+                slot.itemAmountText.text = slot.amount.ToString();
                 return;
             }
         }
         foreach (InventorySlot slot in slots)
         {
-            if(slot.isEmpty == false)
+            if(slot.isEmpty == true)
             {
                 slot.item = _item;
                 slot.amount = _amount;
